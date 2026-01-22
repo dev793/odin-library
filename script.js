@@ -1,22 +1,24 @@
 const booksContainer = document.querySelector(".books-container");
+const newBookForm = document.querySelector("#new-book-form")
 
 const myLibrary = [];
 
-function Book(id, title, author, pages, read) {
+function Book(id, title, author, pages, isRead) {
     this.id = id;
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read;
+    this.isRead = isRead;
 }
 
-function addBookToLibrary(title, author, pages, read) {
-    const book = new Book(crypto.randomUUID(), title, author, pages, read);
+function addBookToLibrary(title, author, pages, isRead) {
+    const book = new Book(crypto.randomUUID(), title, author, pages, isRead);
     myLibrary.push(book);
 }
 
-function displayBooks(booksContainer) {
-    booksContainer.forEach((book) => createCard(book));
+function displayBooks() {
+    booksContainer.innerHTML = "";
+    myLibrary.forEach((book) => createCard(book));
 }
 
 function createCard(book) {
@@ -30,7 +32,22 @@ function createCard(book) {
     booksContainer.append(bookCard);
 }
 
-console.log(myLibrary);
+function handleSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
+
+    const title = form.title.value;
+    const author = form.author.value;
+    const pages = form.pages.value;
+    const isRead = form.isRead.checked;
+
+    addBookToLibrary(title, author, pages, isRead);
+    displayBooks();
+    form.reset();
+}
+
+newBookForm.addEventListener("submit", handleSubmit);
+
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, true);
-console.log(myLibrary);
-displayBooks(myLibrary)
+displayBooks();

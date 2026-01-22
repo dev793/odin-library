@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar {
+    background-color: lightgray;
+    width: 400px;
+    height: 100vh;
+}
