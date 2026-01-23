@@ -1,5 +1,5 @@
 const booksContainer = document.querySelector(".books-container");
-const newBookForm = document.querySelector("#new-book-form")
+const newBookForm = document.querySelector("#new-book-form");
 
 const myLibrary = [];
 
@@ -13,7 +13,6 @@ function Book(id, title, author, pages, isRead) {
 
 Book.prototype.toggleRead = function() {
     this.isRead = !(this.isRead);
-    displayBooks();
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
@@ -49,7 +48,8 @@ function createCard(book, index) {
     toggleReadButton.textContent = "Toggle Read";
 
     toggleReadButton.addEventListener("click", () => {
-        myLibrary[index].toggleRead();
+        book.toggleRead();
+        displayBooks();
     });
 
     bookCard.append(toggleReadButton);
