@@ -18,10 +18,10 @@ function addBookToLibrary(title, author, pages, isRead) {
 
 function displayBooks() {
     booksContainer.innerHTML = "";
-    myLibrary.forEach((book) => createCard(book));
+    myLibrary.forEach((book, index) => createCard(book, index));
 }
 
-function createCard(book) {
+function createCard(book, index) {
     const bookCard = document.createElement("div")
 
     for (let prop in book) {
@@ -29,6 +29,16 @@ function createCard(book) {
         bookProperty.textContent = `${prop}: ${book[prop]}`;
         bookCard.append(bookProperty);
     }
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+
+    deleteButton.addEventListener("click", () => {
+        myLibrary.splice(index, 1);
+        displayBooks()
+    });
+
+    bookCard.append(deleteButton);
     booksContainer.append(bookCard);
 }
 
