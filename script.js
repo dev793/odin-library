@@ -11,6 +11,11 @@ function Book(id, title, author, pages, isRead) {
     this.isRead = isRead;
 }
 
+Book.prototype.toggleRead = function() {
+    this.isRead = !(this.isRead);
+    displayBooks();
+}
+
 function addBookToLibrary(title, author, pages, isRead) {
     const book = new Book(crypto.randomUUID(), title, author, pages, isRead);
     myLibrary.push(book);
@@ -22,13 +27,15 @@ function displayBooks() {
 }
 
 function createCard(book, index) {
-    const bookCard = document.createElement("div")
+    const bookCard = document.createElement("div");
 
-    for (let prop in book) {
+    const DISPLAY_FIELDS = ["title", "author", "pages", "isRead"];
+    
+    DISPLAY_FIELDS.forEach((key) => {
         const bookProperty = document.createElement("div");
-        bookProperty.textContent = `${prop}: ${book[prop]}`;
+        bookProperty.textContent = `${key}: ${book[key]}`;
         bookCard.append(bookProperty);
-    }
+    });
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
@@ -38,6 +45,14 @@ function createCard(book, index) {
         displayBooks()
     });
 
+    const toggleReadButton = document.createElement("button");
+    toggleReadButton.textContent = "Toggle Read";
+
+    toggleReadButton.addEventListener("click", () => {
+        myLibrary[index].toggleRead();
+    });
+
+    bookCard.append(toggleReadButton);
     bookCard.append(deleteButton);
     booksContainer.append(bookCard);
 }
