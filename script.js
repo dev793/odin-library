@@ -3,16 +3,19 @@ const newBookForm = document.querySelector("#new-book-form");
 
 const myLibrary = [];
 
-function Book(id, title, author, pages, isRead) {
-    this.id = id;
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead;
-}
+class Book {
 
-Book.prototype.toggleRead = function() {
-    this.isRead = !(this.isRead);
+    constructor(id, title, author, pages, isRead) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = isRead;
+    }
+
+    toggleRead() {
+        this.isRead = !this.isRead;
+    }
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
